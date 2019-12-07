@@ -5,7 +5,7 @@ import Header from './Header';
 import Profile from './Profile';
 import { ROUTES } from './routes';
 import Campaigns from './Campaigns';
-import Campaign from './Campaign';
+import Offers from './Offers';
 
 function App() {
 	return (
@@ -16,8 +16,8 @@ function App() {
 					<Route path={ROUTES.campaigns}>
 						<Campaigns />
 					</Route>
-					<Route path={ROUTES.campaign(":id")}>
-						<Campaign />
+					<Route path={ROUTES.offers}>
+						<Offers />
 					</Route>
 					<Route path={ROUTES.profile}>
 						<Profile />

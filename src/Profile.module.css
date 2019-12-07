@@ -15,4 +15,6 @@ i.userIcon {
   padding: 10px;
   font-size: large;
   font-weight: bold;
+  margin: 10px;
+  width: 20rem;
 }

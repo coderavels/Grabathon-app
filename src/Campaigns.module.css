@@ -2,3 +2,14 @@
   height: 100%;
   width: 100%;
 }
+
+.campaignCard {
+  margin: 5px;
+  border-radius: 15px;
+  border-style: ridge;
+  cursor: pointer;
+}
+
+.campaignCardDisabled {
+  cursor: default;
+}

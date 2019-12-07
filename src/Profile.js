@@ -11,8 +11,13 @@ function Profile() {
 		<div className={styles.profileContainer}>
 			<Icon className={styles.userIcon} name="user outline" size="massive" />
 			<Link to={ROUTES.campaigns}>
-				<Button className={styles.actionButton} variant="primary" size="sm" type="button" href="">
+				<Button className={styles.actionButton} variant="primary" size="sm">
 				Track your tasks
+				</Button>
+			</Link>
+			<Link to={ROUTES.offers}>
+				<Button className={styles.actionButton} variant="primary" size="sm">
+				See your offers
 				</Button>
 			</Link>
 		</div>
