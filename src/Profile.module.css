@@ -5,7 +5,6 @@
   height: 100%;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
 }
 
 i.userIcon {
@@ -13,7 +12,6 @@ i.userIcon {
 }
 
 .actionButton {
-  width: 50%;
   padding: 10px;
   font-size: large;
   font-weight: bold;
