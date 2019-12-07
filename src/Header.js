@@ -1,9 +1,9 @@
 import React from 'react';
-import './Header.css';
+import styles from './Header.module.css';
 
 function Header() {
 	return (
-		<header className="App-header">
+		<header className={styles.AppHeader}>
     Grab
 		</header>
 	);
