@@ -5,17 +5,20 @@ import styles from './Offers.module.css';
 
 function Offers() {
 	const [coupons, setCoupons] = useState([]);
+	const [loaded, setLoaded] = useState(false);
 	const [error, setError] = useState(null);
 	const [showToast, setShowToast] = useState(false);
 
 	useEffect(() => {
 		fetch("http://127.0.0.1:3000/coupons?userId=1").then(res => res.json()).then(res => {
 			setCoupons(res);
+			setLoaded(true);
 		}).catch(err => {
 			setError(err);
 			setShowToast(true);
+			setLoaded(true);
 		});
-	}, [coupons]);
+	}, [loaded]);
 
 	return (
 		<div className={styles.page}>
