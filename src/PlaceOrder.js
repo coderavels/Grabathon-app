@@ -52,7 +52,7 @@ function PlaceOrder() {
 	const placeOrder = id => {
 		const item = items.find(item => item.id === id);
 		return () => {
-			fetch("http://127.0.0.1/pay", {
+			fetch("http://127.0.0.1:3000/pay", {
 				method: "POST",
 				body: JSON.stringify({
 					payType: item.payType,

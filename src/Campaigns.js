@@ -11,16 +11,19 @@ function Campaigns() {
 	const [campaigns, setCampaigns] = useState({});
 	const [campaignID, setCampaignID] = useState(null);
 	const [error, setError] = useState(null);
+	const [loaded, setLoaded] = useState(false);
 	const [showToast, setShowToast] = useState(false);
 
 	useEffect(() => {
 		fetch("http://127.0.0.1:3000/campaigns?userId=1").then(res => res.json()).then(res => {
 			setCampaigns(res);
+			setLoaded(true);
 		}).catch(err => {
 			setError(err);
 			setShowToast(true);
+			setLoaded(true);
 		});
-	}, [campaigns]);
+	}, [loaded]);
   
 
 	const toggleCampaign = id => {
