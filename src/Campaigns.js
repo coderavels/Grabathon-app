@@ -47,9 +47,9 @@ function Campaigns() {
 		const campaign = campaigns.unenrolled.find(c => c.id === id);
 		return () => {
 			fetch(`http://127.0.0.1:3000/enroll/${id}`, {
-				body: {
+				body: JSON.stringify({
 					userId: 1
-				},
+				}),
 				method: "POST",
 				headers: {
 					"content-type": "application/json"
