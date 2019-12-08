@@ -10,6 +10,12 @@ function Profile() {
 	return (
 		<div className={styles.profileContainer}>
 			<Icon className={styles.userIcon} name="user outline" size="massive" />
+			<h1>Hello User!</h1>
+			<Link to={ROUTES.placeOrder}>
+				<Button className={styles.actionButton} variant="primary" size="sm">
+				Pay Using GrabPay
+				</Button>
+			</Link>
 			<Link to={ROUTES.campaigns}>
 				<Button className={styles.actionButton} variant="primary" size="sm">
 				Track your tasks
