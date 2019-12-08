@@ -50,6 +50,7 @@ function Campaigns() {
 				body: {
 					userId: 1
 				},
+				method: "POST",
 				headers: {
 					"content-type": "application/json"
 				}
