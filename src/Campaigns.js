@@ -15,7 +15,11 @@ function Campaigns() {
 	const [showToast, setShowToast] = useState(false);
 
 	useEffect(() => {
-		fetch("http://127.0.0.1:3000/campaigns?userId=1").then(res => res.json()).then(res => {
+		fetch("http://127.0.0.1:3000/campaigns?userId=1", {
+			headers: {
+				"content-type": "application/json"
+			}
+		}).then(res => res.json()).then(res => {
 			setCampaigns(res);
 			setLoaded(true);
 		}).catch(err => {

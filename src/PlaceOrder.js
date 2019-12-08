@@ -53,6 +53,9 @@ function PlaceOrder() {
 		const item = items.find(item => item.id === id);
 		return () => {
 			fetch("http://127.0.0.1:3000/pay", {
+				headers: {
+					"content-type": "application/json"
+				},
 				method: "POST",
 				body: JSON.stringify({
 					payType: item.payType,
