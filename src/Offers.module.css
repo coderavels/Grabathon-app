@@ -1,0 +1,11 @@
+.page {
+  height: 100%;
+  width: 100%;
+}
+
+.couponCard {
+  margin: 5px;
+  border-radius: 15px;
+  border-style: ridge;
+  cursor: pointer;
+}

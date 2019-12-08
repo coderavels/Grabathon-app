@@ -6,7 +6,7 @@ function Campaign(props) {
 	const { data = {}, showDetails = false } = props;
 
 	return (
-		<div>
+		<Fragment>
 			<Card.Title>{data.name}</Card.Title>
 			<Card.Text>Total tasks: {data.count}</Card.Text>
 			{showDetails && (
@@ -56,7 +56,7 @@ function Campaign(props) {
 				</div>
 			)
 			}
-		</div>
+		</Fragment>
 	);
 }
 

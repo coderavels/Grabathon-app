@@ -4,62 +4,22 @@ import Toast from 'react-bootstrap/Toast';
 import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import styles from './Campaigns.module.css';
-import { Icon } from 'semantic-ui-react';
 import Campaign from './Campaign';
 import Button from 'react-bootstrap/Button';
 
 function Campaigns() {
-	const [campaigns, setCampaigns] = useState({
-		enrolled: [
-			{
-				id: 'enrolled_id1',
-				name: 'Go Green',
-				tc: ["tc1", "tc2"],
-				benefits: ["benefit1", "benefit2"],
-				tasks: [{
-					name: "task1",
-					count: 2,
-					complete: 1
-				}],
-				count: 2,
-				complete: 1
-			}
-		],
-		unenrolled: [
-			{
-				id: 'unenrolled_id1',
-				name: 'Fuel Your Wallet',
-				tc: ["tc1", "tc2"],
-				benefits: ["benefit1", "benefit2"],
-				tasks: [{
-					name: "task1",
-					count: 2
-				}],
-				count: 2,
-			}
-		],
-		completed: [
-			{
-				id: 'completed_id1',
-				name: 'Pool All the way!',
-				tasks: [{
-					name: "task1",
-					count: 2
-				}],
-				count: 2
-			}
-		]
-	});
+	const [campaigns, setCampaigns] = useState({});
 	const [campaignID, setCampaignID] = useState(null);
 	const [error, setError] = useState(null);
 	const [showToast, setShowToast] = useState(false);
 
 	useEffect(() => {
-		// fetch("").then(res => {
-		// 	setCampaigns(res);
-		// }).catch(err => {
-		// 	setError(err);
-		// });
+		fetch("http://127.0.0.1:3000/campaigns?userId=1").then(res => {
+			setCampaigns(res);
+		}).catch(err => {
+			setError(err);
+			setShowToast(true);
+		});
 	}, [campaigns]);
   
 
@@ -84,18 +44,17 @@ function Campaigns() {
 		<div className={styles.page}>
 			{
 				error && (
-					<Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide>
+					<Toast onClose={() => setShowToast(false)} show={showToast} delay={10000} autohide>
 						<Toast.Header>
-							<Icon name="close" />
-							<strong className="mr-auto">Error</strong>
-							<small>{error.code}</small>
+							<strong style={ {color: "red"} }>Error</strong>
+							<small style={ {color: "red"} }>{error.code}</small>
 						</Toast.Header>
-						<Toast.Body>{error.message}</Toast.Body>
+						<Toast.Body style={ {color: "red"} }>{error.message}</Toast.Body>
 					</Toast>
 				)
 			}
 			{
-				campaigns.enrolled.map(campaign => {
+				campaigns.enrolled && campaigns.enrolled.map(campaign => {
 					return (
 						<Card key={campaign.id} onClick={toggleCampaign(campaign.id)} className={styles.campaignCard}>
 							<Card.Body>
@@ -107,7 +66,7 @@ function Campaigns() {
 				})
 			}
 			{
-				campaigns.unenrolled.map(campaign => {
+				campaigns.unenrolled && campaigns.unenrolled.map(campaign => {
 					return (
 						<Card key={campaign.id} onClick={toggleCampaign(campaign.id)} className={styles.campaignCard}>
 							<Card.Body>
@@ -119,7 +78,7 @@ function Campaigns() {
 				})
 			}
 			{
-				campaigns.completed.map(campaign => {
+				campaigns.completed && campaigns.completed.map(campaign => {
 					return (
 						<Card key={campaign.id} className={clsx(styles.campaignCard, styles.campaignCardDisabled)}>
 							<Card.Body>
