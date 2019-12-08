@@ -1,5 +1,6 @@
 export const ROUTES = {
 	profile: "/",
 	campaigns: "/campaigns",
-	offers: "/offers"
+	offers: "/offers",
+	placeOrder: '/orders'
 };

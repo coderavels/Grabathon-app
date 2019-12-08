@@ -6,6 +6,7 @@ import Profile from './Profile';
 import { ROUTES } from './routes';
 import Campaigns from './Campaigns';
 import Offers from './Offers';
+import PlaceOrder from './PlaceOrder';
 
 function App() {
 	return (
@@ -13,6 +14,9 @@ function App() {
 			<div className={styles.App}>
 				<Header></Header>
 				<Switch>
+					<Route path={ROUTES.placeOrder}>
+						<PlaceOrder />
+					</Route>
 					<Route path={ROUTES.campaigns}>
 						<Campaigns />
 					</Route>
