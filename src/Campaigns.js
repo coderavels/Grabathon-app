@@ -6,11 +6,13 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import styles from './Campaigns.module.css';
 import Campaign from './Campaign';
 import Button from 'react-bootstrap/Button';
+import { Icon } from 'semantic-ui-react';
 
 function Campaigns() {
 	const [campaigns, setCampaigns] = useState({});
 	const [campaignID, setCampaignID] = useState(null);
 	const [error, setError] = useState(null);
+	const [success, setSuccess] = useState("");
 	const [loaded, setLoaded] = useState(false);
 	const [showToast, setShowToast] = useState(false);
 
@@ -42,8 +44,31 @@ function Campaigns() {
 	};
   
 	const enroll = id => {
+		const campaign = campaigns.unenrolled.find(c => c.id === id);
 		return () => {
-
+			fetch(`http://127.0.0.1:3000/enroll/${id}`, {
+				body: {
+					userId: 1
+				},
+				headers: {
+					"content-type": "application/json"
+				}
+			})
+				.then(res => res.json())
+				.then(() => {
+					if (campaigns.enrolled) {
+						campaigns.enrolled.push(campaign);
+					} else {
+						campaigns.enrolled = [campaign];
+					}
+					campaigns.unenrolled.filter(c => c.id !== id);
+					setSuccess(`Enrolled in the ${campaign.name} campaign`);
+					setShowToast(true);
+				})
+				.catch(err => {
+					setError(err);
+					setShowToast(true);
+				});
 		};
 	};
   
@@ -65,12 +90,29 @@ function Campaigns() {
 				)
 			}
 			{
+				success && (
+					<Toast onClose={() => {
+						setShowToast(false);
+						setSuccess("");
+					}
+					} show={showToast} delay={5000} autohide>
+						<Toast.Header>
+							<Icon name="thumbs up outline" color="green"></Icon>
+							<strong style={ {color: "green"} }>Success</strong>
+						</Toast.Header>
+						<Toast.Body style={ {color: "green"} }>{success}</Toast.Body>
+					</Toast>
+				)
+			}
+			{
 				campaigns.enrolled && campaigns.enrolled.map(campaign => {
+					const complete = campaign.complete || 0;
+					const count = campaign.count || 0;
 					return (
 						<Card key={campaign.id} onClick={toggleCampaign(campaign.id)} className={styles.campaignCard}>
 							<Card.Body>
 								<Campaign data={campaign} showDetails={campaignID === campaign.id} />
-								<ProgressBar label={`${campaign.complete}/${campaign.count}`} now={(campaign.complete / campaign.count) * 100} />
+								<ProgressBar label={`${complete}/${count}`} now={(complete / count) * 100} />
 							</Card.Body>
 						</Card>
 					);
@@ -82,7 +124,7 @@ function Campaigns() {
 						<Card key={campaign.id} onClick={toggleCampaign(campaign.id)} className={styles.campaignCard}>
 							<Card.Body>
 								<Campaign data={campaign} showDetails={campaignID === campaign.id} />
-								<Button type="button" variant="primary" size="md" onEnroll={enroll(campaign.id)}>Join the Campaign Now!</Button>
+								<Button type="button" variant="primary" size="md" onClick={enroll(campaign.id)}>Join the Campaign Now!</Button>
 							</Card.Body>
 						</Card>
 					);
@@ -94,7 +136,7 @@ function Campaigns() {
 						<Card key={campaign.id} className={clsx(styles.campaignCard, styles.campaignCardDisabled)}>
 							<Card.Body>
 								<Campaign data={campaign} showDetails={false} />
-								<Button disabled type="button" variant="secondary" size="md" onEnroll={enroll(campaign.id)}>Completed!</Button>
+								<Button disabled type="button" variant="secondary" size="md">Completed!</Button>
 							</Card.Body>
 						</Card>
 					);
