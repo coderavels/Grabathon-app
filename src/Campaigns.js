@@ -14,7 +14,7 @@ function Campaigns() {
 	const [showToast, setShowToast] = useState(false);
 
 	useEffect(() => {
-		fetch("http://127.0.0.1:3000/campaigns?userId=1").then(res => {
+		fetch("http://127.0.0.1:3000/campaigns?userId=1").then(res => res.json()).then(res => {
 			setCampaigns(res);
 		}).catch(err => {
 			setError(err);
@@ -44,7 +44,11 @@ function Campaigns() {
 		<div className={styles.page}>
 			{
 				error && (
-					<Toast onClose={() => setShowToast(false)} show={showToast} delay={10000} autohide>
+					<Toast onClose={() => {
+						setShowToast(false);
+						setError(null);
+					}
+					} show={showToast} delay={5000} autohide>
 						<Toast.Header>
 							<strong style={ {color: "red"} }>Error</strong>
 							<small style={ {color: "red"} }>{error.code}</small>

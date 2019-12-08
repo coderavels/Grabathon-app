@@ -1,0 +1,19 @@
+.page {
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  margin: 10px;
+}
+
+.card {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.cta {
+  width: 20%;
+  align-self: flex-end;
+}
